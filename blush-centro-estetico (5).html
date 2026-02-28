@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BLUSH – Centro Estetico | Arosio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+
+  :root {
+    /* ── BEIGE DORATO – protagonista assoluto ── */
+    --bg:         #FAFAF4;   /* pagina base – bianco latte con velo giallo */
+    --bg-2:       #F5F2E8;   /* sezioni alternate – champagne */
+    --bg-3:       #EEE9D8;   /* sezioni più calde – grano chiaro */
+    --card:       #FDFDF8;   /* card bianco panna */
+
+    /* ── ACCENTO – cipria rosato, pochissimo ── */
+    --accent:     #D4B5A8;   /* linee, icone – usato con parsimonia */
+    --accent-h:   #C4A090;   /* hover sull'accento */
+
+    /* ── TESTI – grigio caldo, mai marrone ── */
+    --t1:   #4A4540;   /* testo principale – grigio caldo scuro */
+    --t2:   #7A736C;   /* testo secondario */
+    --t3:   #A8A09A;   /* testo muted */
+
+    /* ── PULSANTI – dorato/sabbia neutro ── */
+    --btn-bg:     #9A9080;   /* sabbia grigia per btn primario */
+    --btn-bg-h:   #7A7268;
+
+    --border: rgba(180,168,148,.18);
+    --r: 10px;
+    --r-sm: 6px;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+
+  body {
+    font-family:'DM Sans', sans-serif;
+    font-weight:300;
+    background:var(--bg);
+    color:var(--t1);
+    overflow-x:hidden;
+  }
+
+  h1,h2,h3,h4 { font-family:'Cormorant Garamond', serif; }
+
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(18px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+
+  .reveal { opacity:0; transform:translateY(22px); transition:opacity .75s ease, transform .75s ease; }
+  .reveal.vis { opacity:1; transform:translateY(0); }
+
+  section { padding:90px 24px; }
+  .wrap   { max-width:1060px; margin:0 auto; }
+  .center { text-align:center; max-width:620px; margin:0 auto; }
+
+  .label {
+    display:block; font-size:10px; letter-spacing:.46em;
+    text-transform:uppercase; color:var(--accent-h);
+    margin-bottom:14px; font-weight:400;
+  }
+
+  h2.big {
+    font-size:clamp(28px,4.2vw,48px); font-weight:300;
+    color:var(--t1); line-height:1.2; margin-bottom:16px;
+  }
+  h2.big em { font-style:italic; color:var(--accent-h); }
+
+  .divider { width:32px; height:1px; background:var(--accent); margin:22px auto 0; }
+
+  .body-text { font-size:15.5px; line-height:1.88; color:var(--t2); margin-top:18px; }
+
+  /* ─────────── BUTTONS ─────────── */
+  .btn {
+    display:inline-flex; align-items:center; gap:8px;
+    padding:13px 28px; border-radius:var(--r-sm);
+    font-family:'DM Sans', sans-serif;
+    font-size:10.5px; font-weight:500;
+    letter-spacing:.17em; text-transform:uppercase;
+    text-decoration:none; transition:all .28s ease;
+    cursor:pointer; border:none; white-space:nowrap;
+  }
+
+  /* Tutti i pulsanti uguali — bordo accent, trasparente */
+  .btn-primary,
+  .btn-ghost,
+  .btn-soft {
+    background:transparent;
+    color:var(--t1);
+    border:1.5px solid var(--accent);
+  }
+  .btn-primary:hover,
+  .btn-ghost:hover,
+  .btn-soft:hover {
+    background:var(--accent);
+    color:var(--card);
+    border-color:var(--accent);
+    transform:translateY(-2px);
+  }
+
+  /* ═══════════════════════════════════
+     HERO
+  ═══════════════════════════════════ */
+  .hero {
+    min-height:100vh;
+    background:
+      radial-gradient(ellipse 70% 55% at 8% 18%,  rgba(238,233,216,.7) 0%, transparent 58%),
+      radial-gradient(ellipse 55% 50% at 92% 82%, rgba(220,212,190,.45) 0%, transparent 58%),
+      linear-gradient(152deg, #FDFDF6 0%, #F8F4E6 50%, #F2EDD8 100%);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; padding:80px 28px;
+    position:relative; overflow:hidden;
+  }
+
+  .hero-deco {
+    position:absolute; font-family:'Cormorant Garamond', serif; font-weight:300;
+    color:rgba(180,168,140,.07); pointer-events:none; user-select:none; line-height:1;
+  }
+  .hero-deco.a { font-size:320px; top:-80px; right:-60px; }
+  .hero-deco.b { font-size:240px; bottom:-70px; left:-40px; }
+
+  .hero-pill {
+    display:inline-block;
+    background:rgba(238,233,216,.6);
+    border:1px solid rgba(180,168,140,.3);
+    border-radius:100px; padding:8px 22px;
+    font-size:10px; letter-spacing:.44em; text-transform:uppercase;
+    color:var(--t2);
+    margin-bottom:36px; position:relative;
+    animation:fadeUp .9s ease both;
+  }
+
+  .hero-title {
+    font-size:clamp(46px,8.5vw,100px);
+    font-weight:300; line-height:1.04; color:var(--t1);
+    position:relative; animation:fadeUp .9s .12s ease both; max-width:840px;
+  }
+  .hero-title em { font-style:italic; color:var(--accent-h); }
+
+  .hero-line {
+    width:40px; height:1px; background:var(--accent);
+    margin:30px auto;
+    position:relative; animation:fadeUp .9s .28s ease both;
+  }
+
+  .hero-sub {
+    font-size:clamp(14px,1.8vw,17px); color:var(--t2);
+    line-height:1.88; max-width:460px;
+    position:relative; animation:fadeUp .9s .22s ease both;
+  }
+
+  .hero-btns {
+    display:flex; flex-wrap:wrap; gap:12px; justify-content:center;
+    position:relative; animation:fadeUp .9s .42s ease both; margin-top:36px;
+  }
+
+  /* ═══════════════════════════════════
+     CHI SIAMO
+  ═══════════════════════════════════ */
+  .about { background:var(--bg-2); }
+
+  .about-inner {
+    display:grid; grid-template-columns:1fr 1fr;
+    gap:72px; align-items:center; margin-top:54px;
+  }
+  @media(max-width:680px){ .about-inner { grid-template-columns:1fr; gap:34px; } }
+
+  .about-quote {
+    font-family:'Cormorant Garamond', serif;
+    font-size:clamp(20px,2.8vw,30px); font-weight:300; font-style:italic;
+    color:var(--t1); line-height:1.65;
+    padding-left:22px; border-left:2px solid var(--accent);
+  }
+
+  .vlist { display:flex; flex-direction:column; gap:22px; }
+  .vitem { display:flex; gap:14px; align-items:flex-start; }
+  .vdot  { width:6px; height:6px; border-radius:50%; background:var(--accent); margin-top:8px; flex-shrink:0; }
+  .vitem h4 { font-size:18px; font-weight:500; color:var(--t1); margin-bottom:4px; }
+  .vitem p  { font-size:14px; line-height:1.82; color:var(--t2); }
+
+  /* ═══════════════════════════════════
+     SERVIZI
+  ═══════════════════════════════════ */
+  .services { background:var(--bg); }
+
+  .svc-grid {
+    display:grid; grid-template-columns:repeat(3,1fr);
+    gap:16px; margin-top:54px;
+  }
+  .svc-grid .sc:nth-child(7) { grid-column:2/3; }
+
+  @media(max-width:760px){
+    .svc-grid { grid-template-columns:1fr 1fr; }
+    .svc-grid .sc:nth-child(7){ grid-column:1/-1; max-width:340px; margin:0 auto; width:100%; }
+  }
+  @media(max-width:480px){
+    .svc-grid { grid-template-columns:1fr; }
+    .svc-grid .sc:nth-child(7){ grid-column:auto; max-width:none; }
+  }
+
+  .sc {
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:var(--r);
+    padding:32px 26px;
+    transition:all .3s ease;
+    position:relative; overflow:hidden;
+  }
+  .sc::after {
+    content:''; position:absolute;
+    bottom:0; left:0; right:0; height:2px;
+    background:linear-gradient(90deg, var(--bg-3), var(--accent));
+    border-radius:0 0 var(--r) var(--r);
+    transform:scaleX(0); transform-origin:left;
+    transition:transform .35s ease;
+  }
+  .sc:hover { transform:translateY(-4px); box-shadow:0 14px 36px rgba(160,148,120,.1); border-color:rgba(180,168,140,.3); }
+  .sc:hover::after { transform:scaleX(1); }
+
+  .si { font-size:24px; margin-bottom:14px; display:block; }
+  .sc h3 { font-size:19px; font-weight:400; color:var(--t1); margin-bottom:10px; }
+  .sc p  { font-size:13.5px; line-height:1.82; color:var(--t2); }
+
+  /* ═══════════════════════════════════
+     PERCHÉ – beige grano, card bianche
+  ═══════════════════════════════════ */
+  .why {
+    background:var(--bg-3);
+    position:relative; overflow:hidden;
+  }
+  .why::before {
+    content:''; position:absolute; inset:0;
+    background:radial-gradient(ellipse 55% 60% at 90% 20%, rgba(255,255,255,.35) 0%, transparent 55%);
+  }
+
+  .why-grid {
+    display:grid; grid-template-columns:repeat(5,1fr);
+    gap:12px; margin-top:54px;
+  }
+  @media(max-width:800px){ .why-grid { grid-template-columns:repeat(3,1fr); } }
+  @media(max-width:520px) { .why-grid { grid-template-columns:1fr 1fr; } }
+
+  .wc {
+    background:rgba(255,255,255,.6);
+    border:1px solid rgba(180,168,140,.2);
+    border-radius:var(--r); padding:26px 16px; text-align:center;
+    transition:all .28s ease; backdrop-filter:blur(6px);
+  }
+  .wc:hover {
+    background:rgba(255,255,255,.85);
+    border-color:rgba(180,168,140,.4);
+    transform:translateY(-3px);
+    box-shadow:0 8px 22px rgba(160,148,120,.12);
+  }
+
+  .wc .wi  { font-size:24px; margin-bottom:11px; display:block; }
+  .wc h4   { font-size:17px; font-weight:400; color:var(--t1); margin-bottom:7px; }
+  .wc p    { font-size:12px; line-height:1.75; color:var(--t2); }
+
+  /* ═══════════════════════════════════
+     RECENSIONI
+  ═══════════════════════════════════ */
+  .reviews { background:var(--bg-2); }
+
+  .rev-grid {
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr));
+    gap:16px; margin-top:54px;
+  }
+
+  .rc {
+    background:var(--card); border-radius:var(--r);
+    padding:28px 24px 22px;
+    border:1px solid var(--border);
+    position:relative; transition:box-shadow .28s ease;
+  }
+  .rc:hover { box-shadow:0 10px 28px rgba(160,148,120,.1); }
+
+  .rq { font-family:'Cormorant Garamond', serif; font-size:64px; color:var(--accent); line-height:.75; margin-bottom:10px; display:block; opacity:.5; }
+  .rt { font-family:'Cormorant Garamond', serif; font-size:17px; font-style:italic; font-weight:300; line-height:1.66; color:var(--t1); margin-bottom:16px; }
+  .rs { color:var(--accent-h); font-size:11.5px; letter-spacing:3px; margin-bottom:5px; }
+  .ra { font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--t3); }
+
+  /* ═══════════════════════════════════
+     CONTATTI
+  ═══════════════════════════════════ */
+  .contact {
+    background:linear-gradient(158deg, #FDFDF6 0%, #F5F0E0 100%);
+    position:relative; overflow:hidden;
+  }
+  .contact::before {
+    content:''; position:absolute; inset:0;
+    background:
+      radial-gradient(ellipse 48% 52% at 4% 90%, rgba(238,233,216,.55) 0%, transparent 55%),
+      radial-gradient(ellipse 38% 45% at 96% 5%,  rgba(220,212,190,.35) 0%, transparent 55%);
+  }
+
+  .cbox { position:relative; max-width:820px; margin:0 auto; text-align:center; }
+
+  .cgrid {
+    display:grid; grid-template-columns:1fr 1fr;
+    gap:12px; margin:42px auto 36px; max-width:500px; text-align:left;
+  }
+  @media(max-width:500px){ .cgrid { grid-template-columns:1fr; } }
+
+  .clink {
+    display:flex; align-items:center; gap:13px;
+    background:rgba(255,255,255,.7);
+    backdrop-filter:blur(8px);
+    border:1px solid rgba(180,168,140,.22);
+    border-radius:var(--r);
+    padding:13px 16px;
+    text-decoration:none; color:var(--t1);
+    transition:all .24s ease;
+  }
+  .clink:hover {
+    background:rgba(255,255,255,.92);
+    border-color:var(--accent);
+    transform:translateY(-2px);
+    box-shadow:0 8px 18px rgba(160,148,120,.12);
+  }
+
+  .cion {
+    width:35px; height:35px; border-radius:var(--r-sm);
+    background:var(--bg-3);
+    display:flex; align-items:center; justify-content:center;
+    font-size:14px; flex-shrink:0; transition:background .22s;
+    border:1px solid rgba(180,168,140,.25);
+  }
+  .clink:hover .cion { background:var(--accent); border-color:var(--accent); }
+
+  .ctxt { display:flex; flex-direction:column; }
+  .ctitle { font-size:9px; letter-spacing:.16em; text-transform:uppercase; color:var(--t3); margin-bottom:2px; }
+  .cval   { font-size:13px; font-weight:400; color:var(--t1); }
+
+  .cbtns { display:flex; flex-wrap:wrap; gap:12px; justify-content:center; }
+
+  .closing {
+    font-family:'Cormorant Garamond', serif;
+    font-size:clamp(26px,4.5vw,48px); font-weight:300; font-style:italic;
+    color:var(--t1); line-height:1.32; margin-top:52px;
+  }
+  .closing::before, .closing::after {
+    content:''; display:block; width:28px; height:1px;
+    background:var(--accent); margin:18px auto;
+  }
+
+  /* ═══════════════════════════════════
+     FOOTER
+  ═══════════════════════════════════ */
+  footer {
+    background:var(--bg-3);
+    border-top:1px solid rgba(180,168,140,.2);
+    color:var(--t3);
+    text-align:center; padding:24px 20px;
+    font-size:11.5px; letter-spacing:.06em;
+  }
+  footer a { color:var(--t2); text-decoration:none; }
+  footer .br { font-family:'Cormorant Garamond', serif; font-size:14px; color:var(--t2); }
+
+  /* ═══════════════════════════════════
+     MOBILE
+  ═══════════════════════════════════ */
+  @media(max-width:600px){
+    section { padding:62px 18px; }
+    .hero-btns { flex-direction:column; align-items:center; }
+    .btn { width:100%; max-width:290px; justify-content:center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <span class="hero-deco a">B</span>
+  <span class="hero-deco b">b</span>
+
+  <span class="hero-pill">✦ &nbsp; Blush · Centro Estetico · Arosio &nbsp; ✦</span>
+
+  <h1 class="hero-title">
+    Dove la bellezza<br>incontra <em>l'armonia.</em>
+  </h1>
+
+  <div class="hero-line"></div>
+
+  <p class="hero-sub">
+    Un'esperienza di cura pensata interamente per te —<br>professionale, autentica, profondamente personale.
+  </p>
+
+  <div class="hero-btns">
+    <a href="#contatti" class="btn btn-primary">✦ Prenota ora</a>
+    <a href="tel:0312245397" class="btn btn-ghost">📞 Chiama ora</a>
+    <a href="#servizi" class="btn btn-soft">Scopri i trattamenti</a>
+  </div>
+</section>
+
+<!-- CHI SIAMO -->
+<section class="about">
+  <div class="wrap">
+    <div class="center reveal">
+      <span class="label">La nostra filosofia</span>
+      <h2 class="big">Non solo estetica.<br>Una cura <em>totale.</em></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="about-inner reveal">
+      <div class="about-quote">
+        "Crediamo che ogni persona meriti un momento di bellezza vissuto con piena attenzione — uno spazio in cui sentirsi comprese, valorizzate e profondamente curate."
+      </div>
+      <div class="vlist">
+        <div class="vitem">
+          <div class="vdot"></div>
+          <div>
+            <h4>Ascolto prima di tutto</h4>
+            <p>Ogni trattamento nasce da una conversazione vera. Comprendiamo le tue esigenze e costruiamo un percorso su misura, ogni volta.</p>
+          </div>
+        </div>
+        <div class="vitem">
+          <div class="vdot"></div>
+          <div>
+            <h4>Professionalità e calore</h4>
+            <p>Carolina unisce una competenza tecnica di altissimo livello a un approccio umano e accogliente che mette subito a proprio agio.</p>
+          </div>
+        </div>
+        <div class="vitem">
+          <div class="vdot"></div>
+          <div>
+            <h4>Un luogo per ritrovarsi</h4>
+            <p>Nel cuore di Arosio, BLUSH è uno spazio pensato perché tu ti senta al sicuro, coccolata e valorizzata — ogni volta che varchi la porta.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVIZI -->
+<section class="services" id="servizi">
+  <div class="wrap">
+    <div class="center reveal">
+      <span class="label">I nostri trattamenti</span>
+      <h2 class="big">Ogni servizio, <em>un'esperienza.</em></h2>
+      <div class="divider"></div>
+      <p class="body-text">Trattamenti selezionati con cura, pensati per valorizzare la tua bellezza naturale con risultati visibili e duraturi.</p>
+    </div>
+    <div class="svc-grid reveal">
+      <div class="sc">
+        <span class="si">✨</span>
+        <h3>Trattamenti Viso</h3>
+        <p>Protocolli personalizzati che partono dall'analisi della pelle per restituire luminosità, idratazione e tonicità. Il tuo viso racconta chi sei — noi lo esaltiamo.</p>
+      </div>
+      <div class="sc">
+        <span class="si">🌸</span>
+        <h3>Trattamenti Corpo</h3>
+        <p>Ritual di benessere che combinano tecnica e sensorialità. Massaggi drenanti, trattamenti rassodanti e percorsi su misura per ritrovarsi in armonia.</p>
+      </div>
+      <div class="sc">
+        <span class="si">💡</span>
+        <h3>Luce Pulsata</h3>
+        <p>Epilazione definitiva con tecnologia di ultima generazione. Sicura, efficace e progressiva. Perché la libertà passa anche attraverso la cura di sé.</p>
+      </div>
+      <div class="sc">
+        <span class="si">💅</span>
+        <h3>Manicure & Pedicure</h3>
+        <p>Un rituale di cura per mani e piedi che va oltre l'estetica. Finitura impeccabile, cuticole perfette, unghie forti — un dettaglio che fa la differenza.</p>
+      </div>
+      <div class="sc">
+        <span class="si">🎨</span>
+        <h3>Make-up Personalizzato</h3>
+        <p>Un trucco che parla di te. Carolina interpreta la tua personalità per creare un look autentico e sofisticato — dal quotidiano all'evento speciale.</p>
+      </div>
+      <div class="sc">
+        <span class="si">👰</span>
+        <h3>Sposa & Grandi Occasioni</h3>
+        <p>Per il giorno più importante della tua vita — e per ogni momento che lo merita. Disponibile anche a domicilio per un'esperienza esclusiva e senza pensieri.</p>
+      </div>
+      <div class="sc">
+        <span class="si">⚙️</span>
+        <h3>Tecnologie Estetiche</h3>
+        <p>Strumentazioni avanzate per trattamenti di precisione. Risultati superiori garantiti dall'unione tra le mani esperte di Carolina e le migliori tecnologie.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PERCHÉ -->
+<section class="why">
+  <div class="wrap">
+    <div class="center reveal">
+      <span class="label">Perché scegliere noi</span>
+      <h2 class="big">Cinque buone ragioni per <em>affidarti a BLUSH.</em></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="why-grid reveal">
+      <div class="wc">
+        <span class="wi">⭐</span>
+        <h4>Professionalità</h4>
+        <p>Formazione continua, tecniche aggiornate, passione vera per il risultato.</p>
+      </div>
+      <div class="wc">
+        <span class="wi">🤍</span>
+        <h4>Accoglienza</h4>
+        <p>Un'atmosfera intima e raffinata dove ti senti subito a casa.</p>
+      </div>
+      <div class="wc">
+        <span class="wi">✦</span>
+        <h4>Tecnologie</h4>
+        <p>Strumenti all'avanguardia per trattamenti sicuri e di qualità superiore.</p>
+      </div>
+      <div class="wc">
+        <span class="wi">🌿</span>
+        <h4>Su misura</h4>
+        <p>Nessun protocollo standard — ogni percorso nasce attorno a te.</p>
+      </div>
+      <div class="wc">
+        <span class="wi">💬</span>
+        <h4>5 Stelle</h4>
+        <p>La fiducia delle clienti su Google e Matrimonio.com parla per noi.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RECENSIONI -->
+<section class="reviews">
+  <div class="wrap">
+    <div class="center reveal">
+      <span class="label">Cosa dicono di noi</span>
+      <h2 class="big">Le parole delle nostre <em>clienti.</em></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="rev-grid reveal">
+      <div class="rc">
+        <span class="rq">"</span>
+        <p class="rt">Professionalità e calore umano in un ambiente dove ci si sente subito a casa. Non è semplice trovare qualcuno così attento e competente allo stesso tempo.</p>
+        <div class="rs">★★★★★</div>
+        <span class="ra">— Valentina M.</span>
+      </div>
+      <div class="rc">
+        <span class="rq">"</span>
+        <p class="rt">Mi sono affidata a Carolina per il mio matrimonio e non avrei potuto scegliere meglio. Mi sono sentita bellissima e sicura. La scelgo ancora oggi, con piena fiducia.</p>
+        <div class="rs">★★★★★</div>
+        <span class="ra">— Giulia R. · Sposa</span>
+      </div>
+      <div class="rc">
+        <span class="rq">"</span>
+        <p class="rt">Un punto di riferimento per chi cerca qualità, precisione e risultati concreti. Ogni visita è un momento tutto mio — e so di essere sempre in mani esperte.</p>
+        <div class="rs">★★★★★</div>
+        <span class="ra">— Francesca T.</span>
+      </div>
+      <div class="rc">
+        <span class="rq">"</span>
+        <p class="rt">Ho provato tanti centri estetici, ma qui mi sono fermata. L'esperienza è curata in ogni dettaglio: dall'accoglienza al trattamento, fino ai risultati.</p>
+        <div class="rs">★★★★★</div>
+        <span class="ra">— Sara B.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTATTI -->
+<section class="contact" id="contatti">
+  <div class="wrap">
+    <div class="cbox reveal">
+      <span class="label">Vieni a trovarci</span>
+      <h2 class="big">Siamo qui <em>per te.</em></h2>
+      <div class="divider"></div>
+      <p class="body-text">Prenota il tuo trattamento, scrivici o vieni a trovarci nel cuore di Arosio.<br>Parcheggio pubblico nelle vicinanze.</p>
+
+      <div class="cgrid">
+        <a href="https://maps.google.com/?q=Piazza+Montello+18+Arosio" target="_blank" class="clink">
+          <span class="cion">📍</span>
+          <span class="ctxt">
+            <span class="ctitle">Indirizzo</span>
+            <span class="cval">Piazza Montello 18, Arosio</span>
+          </span>
+        </a>
+        <a href="tel:0312245397" class="clink">
+          <span class="cion">📞</span>
+          <span class="ctxt">
+            <span class="ctitle">Telefono</span>
+            <span class="cval">031 224 5397</span>
+          </span>
+        </a>
+
+        <a href="mailto:karol.blush@gmail.com" class="clink" onclick="return false;" style="cursor:default;">
+          <span class="cion">✉</span>
+          <span class="ctxt">
+            <span class="ctitle">Email</span>
+            <span class="cval">karol.blush@gmail.com</span>
+          </span>
+        </a>
+        <a href="https://www.facebook.com/blush.arosio/" target="_blank" class="clink">
+          <span class="cion">f</span>
+          <span class="ctxt">
+            <span class="ctitle">Facebook</span>
+            <span class="cval">blush.arosio</span>
+          </span>
+        </a>
+      </div>
+
+      <div class="cbtns">
+        <a href="tel:0312245397"                                                      class="btn btn-primary">📞 Chiama ora</a>
+        <a href="https://maps.google.com/?q=Piazza+Montello+18+Arosio" target="_blank" class="btn btn-soft">📍 Indicazioni</a>
+        <a href="https://www.facebook.com/blush.arosio/"               target="_blank" class="btn btn-ghost">Facebook</a>
+      </div>
+
+      <p class="closing">"Concediti il trattamento<br>che meriti."</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 <span class="br">BLUSH</span> · Centro Estetico · Piazza Montello 18, Arosio ·
+  <a href="tel:0312245397">031 224 5397</a></p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if(e.isIntersecting){ e.target.classList.add('vis'); obs.unobserve(e.target); }
+    });
+  }, { threshold:.08 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // Smooth scroll per anchor interni
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', function(e) {
+      const id = this.getAttribute('href');
+      const target = document.querySelector(id);
+      if(target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior:'smooth', block:'start' });
+      }
+    });
+  });
+
+  // Tel e mailto funzionanti
+  document.querySelectorAll('a[href^="tel:"]').forEach(a => {
+    a.addEventListener('click', function(e) {
+      e.preventDefault();
+      window.location.href = this.getAttribute('href');
+    });
+  });
+</script>
+</body>
+</html>
